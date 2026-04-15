@@ -1,0 +1,44 @@
+.about-section {
+  padding: 15vh 10vw;
+  background: transparent; 
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-container h2 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--accent); /* Optional, defaults to #ff4500 from global.css */
+  margin-bottom: 2rem;
+}
+
+.manifesto {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw + 1rem, 4.5rem);
+  line-height: 1.3;
+  color: inherit;
+  font-weight: 400;
+  max-width: 90%;
+}
+
+.word {
+  /* No display: inline-block so standard line breaks wrap words cleanly. */
+  opacity: 0.15;
+  will-change: opacity;
+  /* Use a smooth transition if not scrubbing, but with scrubbing GSAP handles it natively. */
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 10vh 5vw;
+    min-height: 50vh;
+  }
+}

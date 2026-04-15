@@ -1,0 +1,203 @@
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #050505;
+  z-index: 10;
+}
+
+/* Three.js canvas: gestionado por el componente ThreeScene */
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  z-index: 2;
+  margin-top: 5vh;
+}
+
+/* --- Avatar Circular --- */
+.hero-avatar {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-avatar img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.avatar-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: orbit 10s linear infinite;
+}
+
+/* Efecto elegante de la órbita de Apple */
+.avatar-ring::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Typography Group --- */
+.hero-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 5rem); /* Reducido para no gritar y verse elegante */
+  font-weight: 500;
+  letter-spacing: 0px; /* Al quitar el uppercase, reseteamos el espaciado nativo */
+  line-height: 1;
+  margin: 0;
+  color: var(--text-color);
+  perspective: 400px; /* Vital para que rotationX funcione en las letras */
+}
+
+.hero-badges {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.hero-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(5px);
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.hero-tag:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.hero-tag svg {
+  color: var(--accent); /* Naranja/Acento para darle el punch premium */
+}
+
+.hero-roles {
+  margin-top: 1rem;
+}
+
+.hero-roles p {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  color: var(--text-muted);
+  font-weight: 300;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.separator {
+  color: var(--accent);
+  margin: 0 0.8rem;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .hero-badges {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .hero-roles p {
+    font-size: 0.85rem;
+    line-height: 2;
+  }
+  
+  .separator {
+    display: none; /* En celular es mejor bajar de línea o quitar el pipe duro */
+  }
+  
+  .hero-roles p {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* --- Scroll Indicator --- */
+.scroll-indicator {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.scroll-mouse {
+  width: 22px;
+  height: 38px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.scroll-wheel {
+  width: 3px;
+  height: 6px;
+  background-color: var(--accent);
+  border-radius: 2px;
+  animation: scrollBounce 2s cubic-bezier(0.15, 0.41, 0.69, 0.94) infinite;
+}
+
+.scroll-text {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes scrollBounce {
+  0% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}

@@ -1,0 +1,46 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  /* Degradado para dar contraste independientemente del fondo por debajo */
+  background: linear-gradient(to bottom, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0) 100%);
+  mix-blend-mode: difference; /* Al hacer diferencia de color, garantizamos 100% de legibilidad en blanco/negro */
+}
+
+.navbar-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-icon {
+  color: #fff;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
+  display: flex;
+}
+
+.nav-icon:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1.5rem 1.5rem;
+  }
+}

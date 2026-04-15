@@ -1,0 +1,39 @@
+@media (pointer: fine) {
+  /* Apagamos el cursor nativo donde estemos seguros que tienen ratón de precisión */
+  body, a, button {
+    cursor: none !important;
+  }
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  pointer-events: none; /* Crucial para dejar interactuar al usuario con lo que hay detrás */
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--text-color);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: difference;
+  transition: opacity 0.3s ease;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-ring {
+    display: none;
+  }
+}

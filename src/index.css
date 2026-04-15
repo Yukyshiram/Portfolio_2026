@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300..700&display=swap');
+
+:root {
+  --bg-color: #050505;
+  --text-color: #ffffff;
+  --text-muted: #888888;
+  --accent: #ff4500;
+  
+  --font-heading: 'Lora', serif;
+  --font-body: 'Inter', sans-serif;
+  
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+/* --- Ocultamiento y estilización de la barra de scroll nativa --- */
+::-webkit-scrollbar {
+  width: 5px; /* Barra asombrosamente delgada */
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color); 
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15); /* Color gris cristal discreto */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+/* Soporte extra para Mozilla Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) var(--bg-color);
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+
+/* Fix Mobile: Apagar cursor custom si el dispositivo es táctil */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-ring {
+    display: none !important;
+  }
+  
+  /* Asegurar que las anclas se puedan tocar sin bloqueo */
+  a, button, .hover-target {
+    cursor: pointer !important;
+  }
+}
