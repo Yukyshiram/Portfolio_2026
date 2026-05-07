@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, Suspense, lazy } from 'react';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FiMapPin, FiAtSign } from 'react-icons/fi';
 import profileImg from '../assets/profile.jpg';
-import ThreeScene from './ThreeScene';
+const ThreeScene = lazy(() => import('./ThreeScene'));
 import './Hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,10 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      // 1. Three.js canvas no necesita parallax GSAP (reactivo nativamente)
-
+  useGSAP(() => {
       // 2. Initial Theatrical Entrance (Sub-elementos)
       gsap.from(['.hero-avatar', '.hero-badges', '.hero-roles', '.scroll-indicator'], {
         y: 60,
@@ -49,14 +47,13 @@ export default function Hero() {
           scrub: true
         }
       });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+  }, { scope: containerRef });
 
   return (
     <section className="hero-section" ref={containerRef}>
-      <ThreeScene />
+      <Suspense fallback={<div style={{ position: 'absolute', inset: 0, zIndex: -1 }} />}>
+        <ThreeScene />
+      </Suspense>
       
       <div className="hero-content">
         
