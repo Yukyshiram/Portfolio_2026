@@ -48,10 +48,10 @@ export default function HorizontalGallery() {
   }, []);
 
   const projects = [
-    { title: "Project Alpha", desc: "Digital Experience", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" },
-    { title: "Project Beta", desc: "E-Commerce Plataform", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" },
-    { title: "Project Gamma", desc: "Premium Brand Identity", img: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800" },
-    { title: "Project Delta", desc: "Mobile Application", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800" },
+    { title: "Colibrí IDE Beta", desc: "Entorno de Desarrollo Integrado", img: "/projects/ide_mockup.png", link: "https://github.com/Yukyshiram/Colibri_IDE_Beta" },
+    { title: "SKL API Base TS", desc: "API Modular en TypeScript", img: "/projects/api_concept.png", link: "https://github.com/Yukyshiram/SKL_api_base_ts" },
+    { title: "Damas Estructuradas", desc: "Juego de Damas C++20 y Qt6", img: "/projects/checkers_game.png", link: "https://github.com/Yukyshiram/Damas_estructuradas" },
+    { title: "Portfolio 2026", desc: "Portafolio Creativo Interactivo", img: "/projects/portfolio_real.png", link: "https://github.com/Yukyshiram/Portfolio_2026" },
   ];
 
   return (
@@ -61,7 +61,7 @@ export default function HorizontalGallery() {
       </div>
       <div className="gallery-wrapper" ref={scrollWrapperRef}>
         {projects.map((proj, idx) => (
-          <div className="gallery-item" key={idx}>
+          <a href={proj.link} target="_blank" rel="noopener noreferrer" className="gallery-item" key={idx} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="gallery-img-container">
               <img src={proj.img} alt={proj.title} />
             </div>
@@ -69,7 +69,7 @@ export default function HorizontalGallery() {
               <h3>{proj.title}</h3>
               <span>{proj.desc}</span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </section>
