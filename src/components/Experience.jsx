@@ -48,22 +48,36 @@ export default function Experience() {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Configuramos el ScrollTrigger principal para que ilumine la tarjeta según la posición en pantalla
+      // 1. Configuramos el ScrollTrigger principal para que ilumine la tarjeta según la posición en pantalla
       const jobBoxes = gsap.utils.toArray('.job-box');
       
       jobBoxes.forEach(job => {
         gsap.to(job, {
           scrollTrigger: {
             trigger: job,
-            start: "top 60%",    // Cuando el top de la tarjeta toca el 60% de la pantalla
-            end: "bottom 40%",   // Cuando el bottom de la tarjeta toca el 40%
+            start: "top 50%",    // Se ilumina EXACTAMENTE cuando el título (donde está el punto) toca el centro de la pantalla
+            end: "bottom 50%",   // Se apaga cuando la parte inferior pasa el centro
             toggleClass: "active",// Asigna la clase ACTIVA (cambia la opacidad en CSS nativo)
-            // markers: false // Puedes encender markers para depurar visualmente
           }
         });
       });
+
+      // 2. Animación del punto de progreso a lo largo de la línea del timeline
+      gsap.to('.timeline-progress-dot', {
+        top: '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.timeline-line',
+          start: 'top 50%', // Comienza cuando la parte superior de la línea llega al centro de la pantalla
+          end: 'bottom 50%', // Termina cuando la parte inferior de la línea llega al centro de la pantalla
+          scrub: true
+        }
+      });
       
     }, sectionRef);
+
+    // Recalcula los offsets del timeline tomando en cuenta el espacio del pin de la sección anterior
+    ScrollTrigger.refresh();
 
     return () => ctx.revert();
   }, []);
@@ -79,6 +93,12 @@ export default function Experience() {
 
         {/* Lado derecho que fluye */}
         <div className="exp-right">
+          {/* Línea blanca vertical continua del timeline */}
+          <div className="timeline-line">
+            {/* Punto interactivo que se mueve con el scroll */}
+            <div className="timeline-progress-dot"></div>
+          </div>
+
           {jobs.map(job => (
             <div className="job-box" key={job.id}>
               <div className="job-header">

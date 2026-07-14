@@ -55,12 +55,14 @@ export default function TechnicalSkills() {
       // 1000px por tarjeta asegura un scroll jugoso y ultra suave
       const scrollDistance = cards.length * 1000;
 
+      const isMobile = window.innerWidth <= 768;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
           end: `+=${scrollDistance}`,
-          scrub: 1.5,     // Suavizado ultra premium 
+          scrub: true,    // Vincula la animación de forma instantánea al scroll para evitar desfases al subir/bajar
           pin: true,      // Congela la pantalla literalmente
           anticipatePin: 1
         }
@@ -71,11 +73,19 @@ export default function TechnicalSkills() {
       // las demás se encogen al fondo progresivamente.
       cards.forEach((card, i) => {
         if (i === 0) {
-          gsap.set(card, { xPercent: -50, yPercent: -50, scale: 1, opacity: 1, zIndex: 100 });
+          gsap.set(card, { scale: 1, opacity: 1, zIndex: 100 });
         } else {
-          gsap.set(card, { xPercent: -50, yPercent: -50, scale: 0.1, opacity: 0, zIndex: 100 - i });
+          gsap.set(card, { scale: 0.1, opacity: 0, zIndex: 100 - i });
         }
       });
+
+      // Animación para que el título de sección desaparezca al bajar
+      tl.to('.vision-section-title', {
+        y: -40,
+        opacity: 0,
+        ease: 'power2.inOut',
+        duration: 1.5
+      }, 0);
 
       // Core Loop: Apple-like overlapping timeline
       // Cada iteración 'muere' escalando gigante, y la posterior entra escalando al 1.
@@ -87,15 +97,15 @@ export default function TechnicalSkills() {
            tl.to(card, {
              scale: 4, 
              opacity: 0, 
-             filter: "blur(20px)", 
+             filter: isMobile ? "none" : "blur(20px)", 
              ease: "power2.in", 
              duration: 2
            }, startTime);
         } else {
            // Las siguientes entran volando desde lo profundo...
            tl.fromTo(card,
-             { scale: 0.1, opacity: 0, filter: "blur(10px)" },
-             { scale: 1, opacity: 1, filter: "blur(0px)", ease: "power2.out", duration: 2 },
+             { scale: 0.1, opacity: 0, filter: isMobile ? "none" : "blur(10px)" },
+             { scale: 1, opacity: 1, filter: isMobile ? "none" : "blur(0px)", ease: "power2.out", duration: 2 },
              startTime - 2 // Justo en el mismo segundo que la anterior explota
            );
            
@@ -105,7 +115,7 @@ export default function TechnicalSkills() {
              tl.to(card, {
                scale: 4, 
                opacity: 0, 
-               filter: "blur(20px)",
+               filter: isMobile ? "none" : "blur(20px)",
                ease: "power2.in", 
                duration: 2
              }, startTime);
@@ -115,6 +125,9 @@ export default function TechnicalSkills() {
 
     }, sectionRef);
 
+    // Forzamos recalcular las posiciones de la página ya con el spacer inyectado
+    ScrollTrigger.refresh();
+
     return () => ctx.revert();
   }, []);
 
@@ -122,8 +135,8 @@ export default function TechnicalSkills() {
     <section className="vision-section" ref={sectionRef}>
       <div className="vision-container" ref={containerRef}>
         
-        {/* Elemento sticky estético que no es tarjeta, se queda de fondo */}
-        <h2 className="vision-master-title">Ecosistema</h2>
+        {/* Título de sección que fluye y desaparece con el scroll */}
+        <h2 className="vision-section-title">Habilidades técnicas</h2>
 
         {skillCategories.map((cat, i) => (
           <div className="vision-card" key={i}>

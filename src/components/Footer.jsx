@@ -32,7 +32,7 @@ export default function Footer() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: footerRef.current,
-          start: 'top 60%',
+          start: 'top 35%', // Se activa más tarde (cuando el pie de página ocupa más espacio en pantalla)
           toggleActions: 'play none none reverse'
         }
       });

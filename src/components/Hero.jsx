@@ -61,7 +61,7 @@ export default function Hero() {
           {/* Tu fotografía de perfil circular de manera nativa */}
           <img 
             src={profileImg} 
-            alt="Jesús Vallejo" 
+            alt="Jesús Vallejo - Im_JVallejo - Full Stack Developer & UI/UX Designer" 
           />
           {/* Anillo decorativo premium */}
           <div className="avatar-ring"></div>
@@ -82,7 +82,11 @@ export default function Hero() {
 
         <div className="hero-roles">
           <p>
-            Full Stack Developer <span className="separator">|</span> UI/UX Designer <span className="separator">|</span> Project Manager
+            <span className="role-primary">Full Stack Developer</span>
+            <span className="separator">|</span>
+            <span className="role-secondary">UI/UX Designer</span>
+            <span className="separator">|</span>
+            <span className="role-secondary">Project Manager</span>
           </p>
         </div>
 

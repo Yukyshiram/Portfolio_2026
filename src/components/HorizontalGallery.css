@@ -80,6 +80,31 @@
 }
 
 @media (max-width: 768px) {
+  .gallery-header {
+    top: 14vh; /* Bajado para reducir el espacio vacío gigante sobre las tarjetas */
+    left: 1.5rem;
+  }
+
+  .gallery-wrapper {
+    padding-right: 0; /* Quita el espacio vacío de 15vw a la derecha del último proyecto en móvil */
+  }
+
+  .gallery-info {
+    flex-direction: column; /* Apila el título y la descripción para evitar que chocan entre sí */
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding-top: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .gallery-info h3 {
+    font-size: 1.2rem; /* Tamaño más responsivo en celular */
+  }
+
+  .gallery-info span {
+    font-size: 0.8rem; /* Tamaño más responsivo en celular */
+  }
+
   .gallery-item {
     width: 85vw;
     height: 50vh;

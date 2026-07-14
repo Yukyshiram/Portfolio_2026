@@ -16,27 +16,32 @@
   justify-content: center;
 }
 
-/* Master Title in the deep background */
-.vision-master-title {
+.vision-section-title {
   position: absolute;
-  top: 50%;
+  top: 8vh;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   font-family: var(--font-heading);
-  font-size: clamp(6rem, 15vw, 15rem);
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
   text-transform: uppercase;
   color: var(--text-color);
+  letter-spacing: 2px;
+  z-index: 150;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
 }
 
 /* Las tarjetas Faux-3D */
 .vision-card {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Start centered */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; /* Centrado absoluto perfecto gestionado por el navegador */
+  height: fit-content;
   width: 90vw;
   max-width: 800px;
   background: rgba(10, 10, 10, 0.4);
@@ -96,20 +101,32 @@
   gap: 0.6rem;
 }
 
+.vision-pill:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 .skill-icon {
   display: flex;
   font-size: 1.1em;
   color: var(--accent); /* Para que resalte el icono dentro de la cápsula */
 }
 
-.vision-pill:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
 @media (max-width: 768px) {
   .vision-card {
-    padding: 2.5rem;
-    gap: 2rem;
+    padding: 1.8rem;
+    gap: 1.5rem;
+    max-height: 75vh; /* Ajuste para dar espacio al título arriba */
+    overflow-y: auto;  /* Permite scroll si la categoría tiene muchas habilidades */
+    width: 85vw;       
+    background: #0d0d0d; /* Fondo sólido en celular para evitar bugs de renderizado de Chrome */
+    backdrop-filter: none; /* Desactivado en celular para evitar recortes de pantalla (clipping) */
+    -webkit-backdrop-filter: none;
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borde un poco más brillante */
+  }
+  
+  .vision-section-title {
+    top: 5vh; /* Ajustado en móvil */
+    font-size: 1.8rem;
   }
   
   .card-header {
@@ -118,7 +135,7 @@
   }
   
   .vision-pill {
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 1rem;
     font-size: 0.85rem;
   }
 }

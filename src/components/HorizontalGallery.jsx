@@ -57,7 +57,7 @@ export default function HorizontalGallery() {
   return (
     <section ref={containerRef} className="gallery-section">
       <div className="gallery-header" ref={headerRef}>
-        <h2>Selected Works</h2>
+        <h2>Mis proyectos</h2>
       </div>
       <div className="gallery-wrapper" ref={scrollWrapperRef}>
         {projects.map((proj, idx) => (

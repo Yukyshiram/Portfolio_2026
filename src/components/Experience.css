@@ -38,6 +38,33 @@
   flex-direction: column;
   padding-bottom: 20vh;
   padding-top: 40vh; /* Da espacio inicial para no disparar todo de golpe */
+  position: relative; /* Contenedor de referencia para la línea absoluta */
+}
+
+/* Línea vertical continua blanca del timeline */
+.timeline-line {
+  position: absolute;
+  top: calc(40vh + 1.2rem); /* Alinea el inicio con la primera bolita */
+  bottom: calc(20vh + 11.5rem); /* Alinea el final con la última bolita */
+  left: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+/* Bolita blanca interactiva que se mueve con el scroll */
+.timeline-progress-dot {
+  position: absolute;
+  top: 0;
+  left: -6px; /* Centrado matemático sobre la línea de 2px (ancho 14px -> left: -6px) */
+  width: 14px;
+  height: 14px;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  z-index: 3;
+  will-change: transform;
+  box-sizing: border-box;
 }
 
 /* El Box del Trabajo se inicializa 'apagado' y pequeño */
@@ -45,37 +72,39 @@
   opacity: 0.15;
   transform: scale(0.95);
   transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  border-left: 2px solid rgba(255, 255, 255, 0.1);
   padding-left: 3rem;
   margin-bottom: 25vh; /* Mucho espacio para que solo veas uno enfocado a la vez */
   position: relative;
 }
 
-/* El círculo del timeline */
+.job-box:last-child {
+  margin-bottom: 10vh; /* Espacio reducido al final del timeline */
+}
+
+/* Bolita estática pequeña (anclas grises en la línea) */
 .job-box::before {
   content: '';
   position: absolute;
-  top: 5px;
-  left: -8px; /* mitad de su tamaño (14px) + el borde (2px) para centrarlo exacto */
-  width: 14px;
-  height: 14px;
-  background-color: var(--bg-color);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  top: 1.2rem; /* Alineado verticalmente con el título del puesto */
+  left: -3px; /* Centrado matemático sobre la línea de 2px (ancho 8px -> left: -3px) */
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   transition: all 0.6s ease;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
 /* El estado GSAP iluminado */
 .job-box.active {
   opacity: 1;
   transform: scale(1);
-  border-left-color: var(--text-color);
 }
 
 .job-box.active::before {
-  border-color: var(--text-color);
   background-color: var(--text-color);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Resplandor */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 .job-header {
@@ -138,8 +167,17 @@
     padding-top: 0;
   }
   
+  .timeline-line {
+    top: 1.2rem; /* En celular empieza directo en el primer punto (sin el padding-top de 40vh) */
+    bottom: 3rem; /* Ajustado al reducir el margen inferior del último bloque */
+  }
+  
   .job-box {
     margin-bottom: 15vh;
     padding-left: 2rem;
+  }
+  
+  .job-box:last-child {
+    margin-bottom: 4vh; /* Vacío ultra reducido al final del timeline en móvil */
   }
 }

@@ -38,7 +38,7 @@
 
 @media (max-width: 768px) {
   .about-section {
-    padding: 10vh 5vw;
-    min-height: 50vh;
+    padding: 4vh 5vw; /* Espacio superior/inferior muy reducido en celular */
+    min-height: auto; /* Evita que el flexbox vertical center empuje el contenido hacia abajo */
   }
 }

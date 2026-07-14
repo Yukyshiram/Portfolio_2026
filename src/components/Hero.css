@@ -141,19 +141,15 @@
     gap: 0.8rem;
   }
   
-  .hero-roles p {
-    font-size: 0.85rem;
-    line-height: 2;
-  }
-  
-  .separator {
-    display: none; /* En celular es mejor bajar de línea o quitar el pipe duro */
+  .separator,
+  .role-secondary {
+    display: none !important;
   }
   
   .hero-roles p {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    letter-spacing: 1px;
   }
 }
 
