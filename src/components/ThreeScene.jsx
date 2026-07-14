@@ -50,7 +50,7 @@ function Galaxy() {
   });
 
   return (
-    <Points ref={ref} positions={positions} colors={colors} stride={3} frustumCulled={false}>
+    <Points ref={ref} positions={positions} colors={colors} stride={3} frustumCulled={false} position={[0, 0.55, 0]}>
       <PointMaterial
         transparent
         vertexColors

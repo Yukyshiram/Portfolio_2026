@@ -8,7 +8,6 @@ import AboutMe from './components/AboutMe';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Preloader from './components/Preloader';
 
 function App() {
   // Ensure Lenis starts correctly and doesn't get stuck on reload
@@ -18,7 +17,6 @@ function App() {
 
   return (
     <>
-      <Preloader />
       <SmoothScroll>
       <CustomCursor />
       <Navbar />

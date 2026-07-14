@@ -20,7 +20,7 @@ export default function Hero() {
         stagger: 0.2,
         duration: 1.2,
         ease: 'power3.out',
-        delay: 2.2 
+        delay: 0.2 // Reducido de 2.2 para que cargue instantáneamente
       });
 
       // Animación 3D para cada letra de tu nombre
@@ -31,7 +31,7 @@ export default function Hero() {
         stagger: 0.04,
         duration: 0.9,
         ease: 'back.out(2)',
-        delay: 2.4, // Arranca milisegundos después de que entra la foto
+        delay: 0.4, // Reducido de 2.4 para coordinar entrada inmediata
         transformOrigin: "0% 50% -50"
       });
 

@@ -19,6 +19,10 @@
   font-weight: 700;
   letter-spacing: -0.5px;
   color: #ffffff;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .navbar-links {

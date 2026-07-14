@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Discord domain verification (Private)
+public/.well-known/discord
+
+.vercel
