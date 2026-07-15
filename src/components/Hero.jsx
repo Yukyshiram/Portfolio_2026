@@ -13,26 +13,39 @@ export default function Hero({ startAnimation }) {
   const containerRef = useRef(null);
 
   useGSAP(() => {
+      const isMobile = window.innerWidth <= 768;
+
       if (!startAnimation) {
-        // Mientras carga el preloader, ocultamos absolutamente todo (incluidos foto y canvas)
-        gsap.set(['canvas', '.hero-avatar', '.hero-char', '.hero-badges', '.hero-roles', '.scroll-indicator'], { autoAlpha: 0 });
+        // Mientras carga el preloader, ocultamos todo y pre-posicionamos
+        // En celular, dejamos el canvas fuera de la lista de ocultar para que no tenga animación de entrada
+        const elementsToHide = ['.hero-avatar', '.hero-char', '.hero-badges', '.hero-roles', '.scroll-indicator'];
+        if (!isMobile) {
+          elementsToHide.push('canvas');
+        }
+        gsap.set(elementsToHide, { autoAlpha: 0 });
+        gsap.set('.hero-avatar', { y: 40 });
         return;
       }
 
-      // Los hacemos visibles para iniciar su revelación coordinada
-      gsap.set(['canvas', '.hero-avatar', '.hero-char', '.hero-badges', '.hero-roles', '.scroll-indicator'], { autoAlpha: 1 });
+      // Hacemos visibles las letras, insignias, roles y scroll (pero NO el avatar de golpe!)
+      gsap.set(['.hero-char', '.hero-badges', '.hero-roles', '.scroll-indicator'], { autoAlpha: 1 });
 
-      // 1. Entrada suave del fondo 3D (canvas)
-      gsap.from('canvas', {
-        opacity: 0,
-        duration: 1.5,
-        ease: 'power2.out'
-      });
+      // 1. Entrada suave del fondo 3D (canvas) - SOLO EN PC
+      if (!isMobile) {
+        gsap.to('canvas', {
+          autoAlpha: 1,
+          duration: 1.5,
+          ease: 'power2.out'
+        });
+      } else {
+        // En celular, nos aseguramos de que esté visible inmediatamente
+        gsap.set('canvas', { autoAlpha: 1 });
+      }
 
       // 2. Entrada de la foto de perfil (deslizamiento y desvanecimiento)
-      gsap.from('.hero-avatar', {
-        y: 40,
-        autoAlpha: 0,
+      gsap.to('.hero-avatar', {
+        autoAlpha: 1,
+        y: 0,
         duration: 1.0,
         ease: 'power3.out',
         delay: 0.1
@@ -85,7 +98,7 @@ export default function Hero({ startAnimation }) {
   return (
     <section className="hero-section" ref={containerRef}>
       <Suspense fallback={<div style={{ position: 'absolute', inset: 0, zIndex: -1 }} />}>
-        {(window.innerWidth > 768 || startAnimation) && <ThreeScene />}
+        <ThreeScene />
       </Suspense>
       
       <div className="hero-content">
