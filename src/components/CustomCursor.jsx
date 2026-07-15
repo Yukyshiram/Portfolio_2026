@@ -20,7 +20,15 @@ export default function CustomCursor() {
     const xMoveRing = gsap.quickTo(ringRef.current, "x", {duration: 0.5, ease: "power3.out"});
     const yMoveRing = gsap.quickTo(ringRef.current, "y", {duration: 0.5, ease: "power3.out"});
 
+    let hasMoved = false;
+
     const onMouseMove = (e) => {
+      if (!hasMoved) {
+        // En el primer movimiento del mouse, revelamos los cursores suavemente
+        gsap.to([dotRef.current, ringRef.current], { opacity: 1, duration: 0.3 });
+        hasMoved = true;
+      }
+      
       // Offset compensado por los radios CSS (4px dot, 16px ring) para que centren perfecto
       xMoveDot(e.clientX - 4);
       yMoveDot(e.clientY - 4);

@@ -16,6 +16,8 @@
   pointer-events: none; /* Crucial para dejar interactuar al usuario con lo que hay detrás */
   z-index: 9999;
   mix-blend-mode: difference;
+  opacity: 0; /* Oculto por defecto hasta el primer mousemove */
+  transition: opacity 0.3s ease;
 }
 
 .cursor-ring {
@@ -29,6 +31,7 @@
   pointer-events: none;
   z-index: 9998;
   mix-blend-mode: difference;
+  opacity: 0; /* Oculto por defecto hasta el primer mousemove */
   transition: opacity 0.3s ease;
 }
 

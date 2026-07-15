@@ -9,21 +9,46 @@ import './Hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Hero() {
+export default function Hero({ startAnimation }) {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-      // 2. Initial Theatrical Entrance (Sub-elementos)
-      gsap.from(['.hero-avatar', '.hero-badges', '.hero-roles', '.scroll-indicator'], {
-        y: 60,
-        autoAlpha: 0,
-        stagger: 0.2,
-        duration: 1.2,
-        ease: 'power3.out',
-        delay: 0.2 // Reducido de 2.2 para que cargue instantáneamente
+      if (!startAnimation) {
+        // Mientras carga el preloader, ocultamos absolutamente todo (incluidos foto y canvas)
+        gsap.set(['canvas', '.hero-avatar', '.hero-char', '.hero-badges', '.hero-roles', '.scroll-indicator'], { autoAlpha: 0 });
+        return;
+      }
+
+      // Los hacemos visibles para iniciar su revelación coordinada
+      gsap.set(['canvas', '.hero-avatar', '.hero-char', '.hero-badges', '.hero-roles', '.scroll-indicator'], { autoAlpha: 1 });
+
+      // 1. Entrada suave del fondo 3D (canvas)
+      gsap.from('canvas', {
+        opacity: 0,
+        duration: 1.5,
+        ease: 'power2.out'
       });
 
-      // Animación 3D para cada letra de tu nombre
+      // 2. Entrada de la foto de perfil (deslizamiento y desvanecimiento)
+      gsap.from('.hero-avatar', {
+        y: 40,
+        autoAlpha: 0,
+        duration: 1.0,
+        ease: 'power3.out',
+        delay: 0.1
+      });
+
+      // 3. Entrada de insignias y roles
+      gsap.from(['.hero-badges', '.hero-roles'], {
+        y: 40,
+        autoAlpha: 0,
+        stagger: 0.15,
+        duration: 1.0,
+        ease: 'power3.out',
+        delay: 0.2
+      });
+
+      // 4. Animación 3D para cada letra de tu nombre
       gsap.from('.hero-char', {
         y: 50,
         rotationX: -90,
@@ -31,11 +56,19 @@ export default function Hero() {
         stagger: 0.04,
         duration: 0.9,
         ease: 'back.out(2)',
-        delay: 0.4, // Reducido de 2.4 para coordinar entrada inmediata
+        delay: 0.35,
         transformOrigin: "0% 50% -50"
       });
 
-      // 3. Fade-out scrub sequence when scrolling down
+      // 5. Entrada suave del indicador de scroll
+      gsap.from('.scroll-indicator', {
+        y: 20,
+        autoAlpha: 0,
+        duration: 0.8,
+        delay: 0.6
+      });
+
+      // 5. Fade-out scrub sequence when scrolling down
       gsap.to(['.hero-content', '.scroll-indicator'], {
         autoAlpha: 0,
         y: -100,
@@ -47,12 +80,12 @@ export default function Hero() {
           scrub: true
         }
       });
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [startAnimation] });
 
   return (
     <section className="hero-section" ref={containerRef}>
       <Suspense fallback={<div style={{ position: 'absolute', inset: 0, zIndex: -1 }} />}>
-        <ThreeScene />
+        {(window.innerWidth > 768 || startAnimation) && <ThreeScene />}
       </Suspense>
       
       <div className="hero-content">

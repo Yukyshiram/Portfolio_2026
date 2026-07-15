@@ -1,34 +1,39 @@
 .preloader {
   position: fixed;
-  inset: 0;           /* top, left, right, bottom 0 */
-  z-index: 9999;      /* Por encima de todo, incluido Navbar y Cursor custom */
-  background-color: var(--bg-color); /* Negro puro */
+  inset: 0;
+  z-index: 9999;
+  background-color: #050505; /* Negro puro para ocultar todo al inicio */
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--text-color);
+  color: #ffffff;
 }
 
 .preloader-content {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 2rem;
-  overflow: hidden; /* Para que al levantarse el texto se oculte limpio */
+  user-select: none;
+  overflow: hidden;
 }
 
-.preloader-name {
+.preloader-title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 3vw, 4rem);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #ffffff;
+  display: flex;
 }
 
-.preloader-text {
-  font-family: var(--font-heading);
-  font-size: clamp(4rem, 10vw, 10rem);
-  font-weight: 300;
-  line-height: 1;
-  color: var(--text-color);
+.preloader-char {
+  display: inline-block;
+  opacity: 0; /* Empiezan invisibles para que GSAP las revele una a una */
+  transform: translateY(20px); /* Un leve slide-up al revelarse */
+  will-change: transform, opacity;
+}
+
+/* El punto al final de tu alias resalta en rojo de acento */
+.preloader-char:last-child {
+  color: var(--accent);
 }
